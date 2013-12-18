@@ -171,17 +171,15 @@ namespace Dysphoria.Net.UrlRouting
 		{
 			var lambda = method as LambdaExpression;
 			if (lambda == null) throw new ArgumentException("Argument is not a lambda expression (c => c.Thing)");
-			var convert = lambda.Body;
-			var body = (convert.NodeType == ExpressionType.Convert)
-				? ((UnaryExpression)convert).Operand as MethodCallExpression
-				: convert as MethodCallExpression;
+
+		    var body = ((UnaryExpression) lambda.Body).Operand as MethodCallExpression;
 			if (body == null) throw new ArgumentException("Argument not in correct form (c => c.Thing)");
-			var methodInfoValue = body
-				.Arguments.OfType<ConstantExpression>()
-				.Where(exp => exp.Type == typeof(MethodInfo))
-				.Select(exp => (MethodInfo)exp.Value)
-				.FirstOrDefault();
-			if (methodInfoValue == null) throw new ArgumentException("Cannot find method name in expression.");
+
+		    MethodInfo methodInfoValue = null;
+            if (body.Object is ConstantExpression)
+                methodInfoValue = (body.Object as ConstantExpression).Value as MethodInfo;
+
+			if (methodInfoValue == null) throw new ArgumentException("Cannot find method name in expression: {0}", method.ToString());
 			return methodInfoValue;
 		}
 	}

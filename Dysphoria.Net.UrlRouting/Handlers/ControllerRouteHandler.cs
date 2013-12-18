@@ -64,7 +64,7 @@ namespace Dysphoria.Net.UrlRouting.Handlers
 					var asyncController = (IAsyncController)fullController;
 					var handle = asyncController.BeginExecute(
 						context,
-						(asyncResult) => { asyncController.EndExecute(asyncResult); },
+						asyncController.EndExecute,
 						null);
 				}
 				else
@@ -97,10 +97,10 @@ namespace Dysphoria.Net.UrlRouting.Handlers
 			routeData.Values["action"] = this.actionName;
 		}
 
-		protected internal virtual SessionStateBehavior GetControllerSessionBehavior(RequestContext requestContext, Type controllerType)
+		protected internal virtual SessionStateBehavior GetControllerSessionBehavior(RequestContext requestContext, Type theControllerType)
 		{
 			return _sessionStateCache.GetOrAdd(
-				controllerType,
+				theControllerType,
 				type =>
 				{
 					var attr = type.GetCustomAttributes(typeof(SessionStateAttribute), inherit: true)
