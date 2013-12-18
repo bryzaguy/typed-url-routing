@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Typed URL Routing")]
-[assembly: AssemblyDescription("A library for adding statically-typed URL routing to MVC")]
+[assembly: AssemblyDescription("A library for adding statically-typed URL routing to MVC. Supports MVC 5.  Go to https://github.com/bunsen32/typed-url-routing  for more details.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Typed URL Routing")]
